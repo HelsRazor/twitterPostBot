@@ -40,32 +40,34 @@ def make_post():
 
     cursor = sql_cnt.cursor()
 
-    tbl = randomTable()
+    tbl = randomTable() #chooses a table at random to select from
 
-    print(tbl)
+    #print(tbl)
 
-    cursor.execute("SELECT quote FROM "+tbl)
-    
-    rc = len(cursor.fetchall())
-
-    cursor.execute("SELECT quote FROM "+tbl)
-
-    print(rc)
-
-    x = randint(1,rc)
-
-    print(x)
+    cursor.execute("SELECT quote FROM "+tbl)#Selects the quotes from the table
 
     results = cursor.fetchall()
+    
+    rc = len(results)-1#Gets the number of rows (rc == row count)
 
-    post = ''.join(results[x-1])
+    #cursor.execute("SELECT quote FROM "+tbl)#Re aquires the quotes from the table
+
+    #print(rc)
+
+    x = randint(0,rc)#Psudo random number is generated between 1 and amount of rows
+
+    #print(x)
+
+    #results = cursor.fetchall()#creates a tuple of all quotes
+
+    post = ''.join(results[x])#Stores the selected quote as a string
 
     print(post)  
 
     cursor.close()
     sql_cnt.close()
 
-
+#function to select a table randomly. Will need to update if new tables are added
 def randomTable():
     sel = randint(1,3)
     switcher = {
