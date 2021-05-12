@@ -44,23 +44,23 @@ def make_post():
 
     print(tbl)
 
-    cursor.execute("SELECT quote FROM {}".format(tbl))
-    cursor.fetchall()
-    rc = cursor.rowcount
+    cursor.execute("SELECT quote FROM "+tbl)
+    
+    rc = len(cursor.fetchall())
+
+    cursor.execute("SELECT quote FROM "+tbl)
 
     print(rc)
 
     x = randint(1,rc)
 
     print(x)
-    
-    query= ("SELECT quote FROM " + str(tbl) +
-            "WHERE id =" + str(x)+";")
 
-    cursor.execute(query)
+    results = cursor.fetchall()
 
-    for(query) in cursor:
-        print("{}".format(query))
+    post = ''.join(results[x-1])
+
+    print(post)  
 
     cursor.close()
     sql_cnt.close()
@@ -74,6 +74,5 @@ def randomTable():
             3: "theatrical"
         }
     return switcher.get(sel)
-
 
 make_post()
