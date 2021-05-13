@@ -1,4 +1,5 @@
 import tweepy
+import datetime
 import time
 import mysql.connector
 from mysql.connector import errorcode
@@ -7,10 +8,10 @@ from random import randint
 #Twitter Kyes and secrets are retrieved from a text file
 k_und_s = open("ks.txt","r")
 
-CONSUMER_KEY= k_und_s.readline();
-CONSUMER_SECRET=k_und_s.readline();
-ACCESS_KEY=k_und_s.readline();
-ACCESS_SECRET=k_und_s.readline();
+CONSUMER_KEY= k_und_s.readline().strip()
+CONSUMER_SECRET=k_und_s.readline().strip()
+ACCESS_KEY=k_und_s.readline().strip()
+ACCESS_SECRET=k_und_s.readline().strip()
 
 k_und_s.close()
 
@@ -21,8 +22,14 @@ auth.set_access_token(ACCESS_KEY,ACCESS_SECRET)
 api = tweepy.API(auth)
 
 
-
 def make_post():
+
+    post_text = create_post()
+    
+    api.update_status(post_text)
+
+    
+def create_post():
     
 #SQL CONNECTOR
     conn_info = open("connectionDetails.txt","r")
@@ -62,10 +69,12 @@ def make_post():
 
     post = ''.join(results[x])#Stores the selected quote as a string
 
-    print(post)  
+    #print(post)  
 
     cursor.close()
     sql_cnt.close()
+
+    return post
 
 #function to select a table randomly. Will need to update if new tables are added
 def randomTable():
@@ -77,4 +86,20 @@ def randomTable():
         }
     return switcher.get(sel)
 
-make_post()
+def time_check():#Checks to see if the time matches the targeted time if it does then we will post a tweet
+    currentTimeTup = datetime.datetime.now()
+    targetTime = currentTimeTup.replace(hour=12,minute=0,second=0)
+    #print(currentTimeTup)
+    #print (targetTime)
+    if(currentTimeTup == targetTime):
+        #print("Time Match")
+        return True
+    else:
+        #print("Does not match yet... Wait")
+        return False
+
+while (True):
+    if(time_check()):#checks if it is time to post if it is a post will be made
+        #print(create_post())
+        make_post()
+    time.sleep(1)#this will delay the check for one second . This will run 86,399 times between post
