@@ -18,7 +18,7 @@ INSERT INTO happy (quote)
             ('Our happiness depends on wisdom all the way. - Sophocles'),
             ('True happiness... is not attained through self-gratification but through fidelity to a worthy purpose. - Helen Keller'),
             ('Happiness is not a goal; it is a by-product. - Eleanor Roosevelt'),
-            ('Happiness is inward, and not outward; and so, it does not depend on what we have, but on what we are.');
+            ('Happiness is inward, and not outward; and so, it does not depend on what we have, but on what we are. - Henry Van Dyke');
 CREATE TABLE IF NOT EXISTS mathematical_monday(
     id SMALLINT AUTO_INCREMENT NOT NULL,
     quote VARCHAR(280) NOT NULL,
@@ -34,12 +34,20 @@ CREATE TABLE IF NOT EXISTS random(
     PRIMARY KEY(id)
 );
 
+CREATE TABLE IF NOT EXISTS whimsical(
+    id SMALLINT AUTO_INCREMENT NOT NULL,
+    quote VARCHAR(280) NOT NULL,
+    lastUsed DATE,
+    PRIMARY KEY(id)
+);
+
+
 INSERT INTO whimsical(quote)
     VALUES('You must not ever stop being whimsical. And you must not, ever, give anyone else the responsibility for your life. - Mary Oliver, Wild Geese'),
           ('What\'s life without whimsy? - Dr Sheldon Cooper, The Big Bang Theory'),
           ('Have a great day, unless you\'ve made other plans. - Stephen Poplin'),
           ('More than whimsy, joy is a weapon we use to fight life\'s battles. - Margaret Feinberg'),
-          ('Today it\'s economically crucial and personally rewarding to create something that is also beautiful, whimsical, or emotionally engaging.');
+          ('Today it\'s economically crucial and personally rewarding to create something that is also beautiful, whimsical, or emotionally engaging. - Daniel H. Pink');
 
 
 CREATE TABLE IF NOT EXISTS theatrical(
